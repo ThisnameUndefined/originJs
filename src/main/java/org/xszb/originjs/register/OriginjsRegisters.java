@@ -4,9 +4,12 @@ import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityCondition;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
+import io.github.edwinmindcraft.apoli.common.power.ActionOnBlockBreakPower;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.xszb.originjs.Originjs;
+import org.xszb.originjs.power.AddSpellPower;
 
 public class OriginjsRegisters {
 
@@ -19,6 +22,7 @@ public class OriginjsRegisters {
     public static final DeferredRegister<BlockAction<?>> BLOCK_ACTIONS;
     public static final DeferredRegister<BiEntityCondition<?>> BIENTITY_CONDITIONS;
     public static final DeferredRegister<BiEntityAction<?>> BIENTITY_ACTIONS;
+    public static final DeferredRegister<PowerFactory<?>> POWER_FACTORIES;
 
     public static void initialize(IEventBus bus) {
         ENTITY_CONDITIONS.register(bus);
@@ -30,9 +34,11 @@ public class OriginjsRegisters {
         BLOCK_ACTIONS.register(bus);
         BIENTITY_CONDITIONS.register(bus);
         BIENTITY_ACTIONS.register(bus);
+        POWER_FACTORIES.register(bus);
 
         org.xszb.originjs.register.EntityAction.bootstrap();
         org.xszb.originjs.register.EntityCondition.bootstrap();
+        org.xszb.originjs.register.PowerFactories.bootstrap();
     }
     static {
         ENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.ENTITY_CONDITION_KEY.location(), Originjs.MODID);
@@ -44,5 +50,6 @@ public class OriginjsRegisters {
         BLOCK_ACTIONS = DeferredRegister.create(ApoliRegistries.BLOCK_ACTION_KEY.location(), Originjs.MODID);
         BIENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_CONDITION_KEY.location(), Originjs.MODID);
         BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY.location(), Originjs.MODID);
+        POWER_FACTORIES = DeferredRegister.create(ApoliRegistries.POWER_FACTORY_KEY .location(), Originjs.MODID);
     }
 }
