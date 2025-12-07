@@ -2,10 +2,13 @@ package org.xszb.originjs.origins;
 
 import io.github.edwinmindcraft.apoli.api.ApoliAPI;
 import io.github.edwinmindcraft.apoli.api.component.IPowerContainer;
+import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import org.xszb.originjs.power.configuration.KJSEventTriggerConfiguration;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
 
@@ -64,6 +67,19 @@ public interface KubeJSOriginHelper {
             if (!notsync) {
                 container.sync();
             }
+        });
+    }
+
+    default void triggeredKjsPower (String key) {
+        Entity entity = (Entity) this;
+        IPowerContainer.get(entity).ifPresent(container -> {
+            container.getPowers().forEach(power -> {
+                if (power.value().getConfiguration() instanceof KJSEventTriggerConfiguration evt){
+                    if (Objects.equals(key, evt.key())){
+                        ConfiguredEntityAction.execute(evt.entityAction(), entity);
+                    }
+                }
+            });
         });
     }
 }

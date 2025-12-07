@@ -16,7 +16,6 @@ public class IntegrationEventProxy {
             isIronSpellsLoaded = ModList.get().isLoaded(IRON_SPELLS_MODID);
         }
 
-        // 关键：使用最通用的事件类型 `Event`
         @SubscribeEvent
         public static void onGenericForgeEvent(Event rawEvent) {
             if (!isIronSpellsLoaded) {
