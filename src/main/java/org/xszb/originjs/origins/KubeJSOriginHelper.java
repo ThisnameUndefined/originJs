@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import org.xszb.originjs.power.configuration.KJSEventTriggerConfiguration;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalInt;
@@ -25,6 +26,7 @@ public interface KubeJSOriginHelper {
                 });
         return resourcepower.map(Integer::intValue).orElse(0);
     }
+
     default void ChangeOriginResource (String resourceName,int num) {
         Entity entity = (Entity)this;
         IPowerContainer.get(entity).resolve()
@@ -42,29 +44,30 @@ public interface KubeJSOriginHelper {
                 .map(x -> x.getPower(ResourceLocation.parse(resourceName))).isPresent();
     }
 
-    default void RemoveOriginPower(String resourceName, String source,boolean notsync) {
+    default void RemoveOriginPower(String resourceName, String source,@Nullable Boolean notsync) {
         Entity entity = (Entity) this;
-
+        boolean shouldSync = notsync == null || !notsync;
         IPowerContainer.get(entity).ifPresent(container -> {
             ResourceLocation powerLocation = ResourceLocation.parse(resourceName);
             ResourceLocation sourceLocation = ResourceLocation.parse(source);
 
             container.removePower(powerLocation, sourceLocation);
-            if (!notsync) {
+            if (shouldSync) {
                 container.sync();
             }
         });
     }
 
-    default void AddOriginPower(String resourceName, String source,boolean notsync) {
+    default void AddOriginPower(String resourceName, String source,@Nullable Boolean notsync) {
         Entity entity = (Entity) this;
+        boolean shouldSync = notsync == null || !notsync;
 
         IPowerContainer.get(entity).ifPresent(container -> {
             ResourceLocation powerLocation = ResourceLocation.parse(resourceName);
             ResourceLocation sourceLocation = ResourceLocation.parse(source);
 
             container.addPower(powerLocation, sourceLocation);
-            if (!notsync) {
+            if (shouldSync) {
                 container.sync();
             }
         });
@@ -81,5 +84,15 @@ public interface KubeJSOriginHelper {
                 }
             });
         });
+    }
+
+    default boolean GetPowerIsActive (String resourceName) {
+        Entity entity = (Entity)this;
+        return IPowerContainer.get(entity)
+                .filter(x-> x.hasPower(ResourceLocation.parse(resourceName)))
+                .map((x) -> x.getPower(ResourceLocation.parse(resourceName)))
+                .map((x) -> x.get().isActive(entity))
+                .orElse(false);
+
     }
 }
