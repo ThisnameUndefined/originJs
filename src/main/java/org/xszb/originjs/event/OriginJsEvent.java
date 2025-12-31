@@ -26,6 +26,8 @@ public class OriginJsEvent {
 
     public static final EventHandler BlockCondition = GROUP.common("OriginBlockCondition", () -> BlockEventKjsBlockCondition.class).extra(Extra.STRING).hasResult();
 
+    public static final EventHandler DamageCondition = GROUP.common("OriginDamageCondition", () -> DamageEventKjsDamageCondition.class).extra(Extra.STRING).hasResult();
+
 
 
 
@@ -74,6 +76,12 @@ public class OriginJsEvent {
     public static void BlockAction  (KJSblockActionEvent event) {
         if (BlockAction.hasListeners()) {
             BlockAction.post((ScriptTypeHolder)event.getLevel(),event.getKey() ,(EventJS) new BlockEventKjsBlockAction(event)).interruptFalse();
+        }
+    }
+
+    public static void DamageCondition(KJSDamageConditionEvent event) {
+        if (DamageCondition.hasListeners()) {
+            DamageCondition.post(ScriptType.SERVER,event.getKey() ,(EventJS) new DamageEventKjsDamageCondition(event)).interruptFalse();
         }
     }
 

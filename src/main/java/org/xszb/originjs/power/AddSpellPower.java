@@ -1,6 +1,8 @@
 package org.xszb.originjs.power;
 
+import io.github.edwinmindcraft.apoli.api.power.configuration.ConfiguredEntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.PowerFactory;
+import io.github.edwinmindcraft.apoli.common.power.configuration.ActionOnCallbackConfiguration;
 import io.redspace.ironsspellbooks.player.ClientMagicData;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -19,6 +21,24 @@ public class AddSpellPower extends PowerFactory<AddSpellConfiguration> {
     }
 
     protected void onLost(AddSpellConfiguration configuration, Entity player) {
+        if (player instanceof Player ple) {
+            ClientMagicData.updateSpellSelectionManager((ServerPlayer) ple);
+        }
+    }
+
+    protected void onAdded(AddSpellConfiguration configuration, Entity player) {
+        if (player instanceof Player ple) {
+            ClientMagicData.updateSpellSelectionManager((ServerPlayer) ple);
+        }
+    }
+
+    protected void onRemoved(AddSpellConfiguration configuration, Entity player) {
+        if (player instanceof Player ple) {
+            ClientMagicData.updateSpellSelectionManager((ServerPlayer) ple);
+        }
+    }
+
+    protected void onRespawn(AddSpellConfiguration configuration, Entity player) {
         if (player instanceof Player ple) {
             ClientMagicData.updateSpellSelectionManager((ServerPlayer) ple);
         }

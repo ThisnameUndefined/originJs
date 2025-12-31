@@ -1,10 +1,7 @@
 package org.xszb.originjs.register;
 
 import net.minecraftforge.registries.RegistryObject;
-import org.xszb.originjs.power.condition.KJSBientConditionPower;
-import org.xszb.originjs.power.condition.KJSblockConditionPower;
-import org.xszb.originjs.power.condition.KJSentConditionPower;
-import org.xszb.originjs.power.condition.KJSitemConditionPower;
+import org.xszb.originjs.power.condition.*;
 
 public class EntityCondition {
     public static final RegistryObject<KJSentConditionPower> KJS_ENTITY_CONDITIONS =
@@ -28,6 +25,12 @@ public class EntityCondition {
             OriginjsRegisters.BLOCK_CONDITIONS.register(
                     "kjs_block_condition",
                     KJSblockConditionPower::new
+            );
+
+    public static final RegistryObject<KJSDamageConditionPower> KJS_DAMAGE_CONDITIONS =
+            OriginjsRegisters.DAMAGE_CONDITION.register(
+                    "kjs_damage_condition",
+                    KJSDamageConditionPower::new
             );
     public static void bootstrap() {
 

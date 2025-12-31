@@ -17,6 +17,7 @@ public class OriginjsRegisters {
     public static final DeferredRegister<ItemCondition<?>> ITEM_CONDITIONS;
     public static final DeferredRegister<BlockCondition<?>> BLOCK_CONDITIONS;
     public static final DeferredRegister<BiomeCondition<?>> BIOME_CONDITIONS;
+    public static final DeferredRegister<DamageCondition<?>> DAMAGE_CONDITION;
     public static final DeferredRegister<EntityAction<?>> ENTITY_ACTIONS;
     public static final DeferredRegister<ItemAction<?>> ITEM_ACTIONS;
     public static final DeferredRegister<BlockAction<?>> BLOCK_ACTIONS;
@@ -35,6 +36,7 @@ public class OriginjsRegisters {
         BIENTITY_CONDITIONS.register(bus);
         BIENTITY_ACTIONS.register(bus);
         POWER_FACTORIES.register(bus);
+        DAMAGE_CONDITION.register(bus);
 
         org.xszb.originjs.register.EntityAction.bootstrap();
         org.xszb.originjs.register.EntityCondition.bootstrap();
@@ -51,5 +53,6 @@ public class OriginjsRegisters {
         BIENTITY_CONDITIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_CONDITION_KEY.location(), Originjs.MODID);
         BIENTITY_ACTIONS = DeferredRegister.create(ApoliRegistries.BIENTITY_ACTION_KEY.location(), Originjs.MODID);
         POWER_FACTORIES = DeferredRegister.create(ApoliRegistries.POWER_FACTORY_KEY .location(), Originjs.MODID);
+        DAMAGE_CONDITION = DeferredRegister.create(ApoliRegistries.DAMAGE_CONDITION_KEY .location(), Originjs.MODID);
     }
 }

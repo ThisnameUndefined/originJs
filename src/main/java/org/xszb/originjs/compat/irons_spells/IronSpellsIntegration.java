@@ -8,6 +8,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.eventbus.api.Event;
 import org.xszb.originjs.power.configuration.AddSpellConfiguration;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class IronSpellsIntegration {
 
     public static void onEvent(Event rawEvent) {
@@ -15,14 +17,16 @@ public class IronSpellsIntegration {
             return;
         }
         Player player = event.getEntity();
+        AtomicInteger count = new AtomicInteger();
         IPowerContainer.get(player).ifPresent(powerContainer -> {
             powerContainer.getPowers().forEach(power -> {
                 if (power.get().getConfiguration() instanceof AddSpellConfiguration config) {
-                    int initialIndex = event.getManager().getSpellCount();
+                    count.addAndGet(1);
+                    int initialIndex = event.getManager().getSpellCount() + count.get();
                     event.addSelectionOption(
                             new SpellData(SpellRegistry.getSpell(config.SpellName()), config.SpellLevel(), true),
                             power.toString() + "_" + config.SpellName(),
-                            initialIndex + 1
+                            initialIndex
                     );
                 }
             });

@@ -34,6 +34,7 @@ public class Originjs {
         forgeEventBus.addListener(OriginJsEvent::BiEntityCondition);
         forgeEventBus.addListener(OriginJsEvent::ItemCondition);
         forgeEventBus.addListener(OriginJsEvent::BlockCondition);
+        forgeEventBus.addListener(OriginJsEvent::DamageCondition);
 
         OriginjsRegisters.initialize(modEventBus);
 
