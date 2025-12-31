@@ -18,15 +18,15 @@ public class IronSpellsIntegration {
         }
         Player player = event.getEntity();
         AtomicInteger count = new AtomicInteger();
+        int initialIndex = event.getManager().getSpellCount();
         IPowerContainer.get(player).ifPresent(powerContainer -> {
             powerContainer.getPowers().forEach(power -> {
                 if (power.get().getConfiguration() instanceof AddSpellConfiguration config) {
                     count.addAndGet(1);
-                    int initialIndex = event.getManager().getSpellCount() + count.get();
                     event.addSelectionOption(
                             new SpellData(SpellRegistry.getSpell(config.SpellName()), config.SpellLevel(), true),
                             power.toString() + "_" + config.SpellName(),
-                            initialIndex
+                            initialIndex + count.get()
                     );
                 }
             });
