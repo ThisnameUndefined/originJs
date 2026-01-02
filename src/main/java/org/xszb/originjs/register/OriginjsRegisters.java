@@ -4,12 +4,9 @@ import io.github.edwinmindcraft.apoli.api.power.factory.*;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityAction;
 import io.github.edwinmindcraft.apoli.api.power.factory.EntityCondition;
 import io.github.edwinmindcraft.apoli.api.registry.ApoliRegistries;
-import io.github.edwinmindcraft.apoli.common.power.ActionOnBlockBreakPower;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.RegistryObject;
 import org.xszb.originjs.Originjs;
-import org.xszb.originjs.power.AddSpellPower;
 
 public class OriginjsRegisters {
 
